@@ -1,4 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    dependencies {
+        def nav_version = "2.3.5"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.1'
+    }
+}
+
 plugins {
     id 'com.android.application' version '7.1.1' apply false
     id 'com.android.library' version '7.1.1' apply false
@@ -8,3 +16,13 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+/*
+*
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import com.google.common.truth.Truth.assertThat
+import org.junit.Before
+import org.junit.Test
+*/
