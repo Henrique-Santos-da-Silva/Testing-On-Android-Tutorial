@@ -1,11 +1,9 @@
 package com.youtube.tutorials.testingonandroidtutorial.data.local
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
+@Dao
 interface ShoppingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -15,8 +13,8 @@ interface ShoppingDao {
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
     @Query("SELECT * FROM shopping_items")
-    fun getAllShoppingItems(): LiveData<ShoppingItem>
+    fun getAllShoppingItems(): LiveData<List<ShoppingItem>>
 
     @Query("SELECT SUM(price * amount) FROM shopping_items")
-    fun getTotalPrice(): LiveData<ShoppingItem>
+    fun getTotalPrice(): LiveData<Float>
 }
