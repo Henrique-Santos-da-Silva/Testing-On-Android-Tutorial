@@ -7,6 +7,7 @@ import com.youtube.tutorials.testingonandroidtutorial.data.local.ShoppingItemDat
 import com.youtube.tutorials.testingonandroidtutorial.data.remote.PixabayAPI
 import com.youtube.tutorials.testingonandroidtutorial.other.Constants.BASE_URL
 import com.youtube.tutorials.testingonandroidtutorial.other.Constants.DATABASE_NAME
+import com.youtube.tutorials.testingonandroidtutorial.repositories.DefaultShoppingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,10 @@ object AppModule {
     @Singleton
     @Provides
     fun providerShoppingDao(database: ShoppingItemDatabase): ShoppingDao = database.shoppingDao()
+
+    @Singleton
+    @Provides
+    fun providerDefaultShoppingRepository(dao: ShoppingDao, api: PixabayAPI): ShoppingDao = DefaultShoppingRepository(dao, api) as ShoppingDao
 
     @Singleton
     @Provides

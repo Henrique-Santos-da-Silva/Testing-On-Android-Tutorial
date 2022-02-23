@@ -1,7 +1,8 @@
-package com.youtube.tutorials.testingonandroidtutorial
+package com.youtube.tutorials.testingonandroidtutorial.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.youtube.tutorials.testingonandroidtutorial.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
