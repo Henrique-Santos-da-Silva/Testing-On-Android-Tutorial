@@ -8,7 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.youtube.tutorials.testingonandroidtutorial.databinding.FragmentAddShoppingItemBinding
 import com.youtube.tutorials.testingonandroidtutorial.viewmodels.ShoppingViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
 
+@AndroidEntryPoint
+@FragmentScoped
 class AddShoppingItemFragment : Fragment() {
     private var _binding: FragmentAddShoppingItemBinding? = null
     private val binding: FragmentAddShoppingItemBinding? get() = _binding

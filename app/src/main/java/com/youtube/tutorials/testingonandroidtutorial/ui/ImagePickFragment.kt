@@ -8,7 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.youtube.tutorials.testingonandroidtutorial.databinding.FragmentImagePickBinding
 import com.youtube.tutorials.testingonandroidtutorial.viewmodels.ShoppingViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
 
+@AndroidEntryPoint
+@FragmentScoped
 class ImagePickFragment : Fragment() {
     private var _binding: FragmentImagePickBinding? = null
     private val binding: FragmentImagePickBinding? get() = _binding

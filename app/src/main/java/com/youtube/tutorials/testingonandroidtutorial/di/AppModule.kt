@@ -8,6 +8,8 @@ import com.youtube.tutorials.testingonandroidtutorial.data.remote.PixabayAPI
 import com.youtube.tutorials.testingonandroidtutorial.other.Constants.BASE_URL
 import com.youtube.tutorials.testingonandroidtutorial.other.Constants.DATABASE_NAME
 import com.youtube.tutorials.testingonandroidtutorial.repositories.DefaultShoppingRepository
+import com.youtube.tutorials.testingonandroidtutorial.repositories.ShoppingRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,28 +21,29 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+abstract class AppModule {
 
-    @Singleton
-    @Provides
-    fun providerShoppingItemDatabase(@ApplicationContext context: Context): ShoppingItemDatabase =
-        Room.databaseBuilder(context, ShoppingItemDatabase::class.java, DATABASE_NAME).build()
+    @Binds
+    abstract fun providerDefaultShoppingRepository(defaultShoppingRepository: DefaultShoppingRepository): ShoppingRepository
 
-    @Singleton
-    @Provides
-    fun providerShoppingDao(database: ShoppingItemDatabase): ShoppingDao = database.shoppingDao()
+    companion object {
+        @Singleton
+        @Provides
+        fun providerShoppingItemDatabase(@ApplicationContext context: Context): ShoppingItemDatabase =
+            Room.databaseBuilder(context, ShoppingItemDatabase::class.java, DATABASE_NAME).build()
 
-    @Singleton
-    @Provides
-    fun providerDefaultShoppingRepository(dao: ShoppingDao, api: PixabayAPI): ShoppingDao = DefaultShoppingRepository(dao, api) as ShoppingDao
+        @Singleton
+        @Provides
+        fun providerShoppingDao(database: ShoppingItemDatabase): ShoppingDao = database.shoppingDao()
 
-    @Singleton
-    @Provides
-    fun providerPixabayApi(): PixabayAPI {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(PixabayAPI::class.java)
+        @Singleton
+        @Provides
+        fun providerPixabayApi(): PixabayAPI {
+            return Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL)
+                .build()
+                .create(PixabayAPI::class.java)
+        }
     }
 }
