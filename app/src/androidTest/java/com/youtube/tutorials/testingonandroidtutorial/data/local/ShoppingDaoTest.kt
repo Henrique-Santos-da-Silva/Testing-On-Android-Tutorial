@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.youtube.tutorials.testingonandroidtutorial.getOrAwaitValue
+import com.youtube.tutorials.testingonandroidtutorial.launchFragmentInHiltContainer
+import com.youtube.tutorials.testingonandroidtutorial.ui.ShoppingFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.runTest
@@ -38,6 +40,11 @@ class ShoppingDaoTest {
     @After
     fun tearDown() {
         database.close()
+    }
+
+    @Test
+    fun testLaunchFragmentInHiltContainer() {
+        launchFragmentInHiltContainer<ShoppingFragment> {  }
     }
 
     @Test
