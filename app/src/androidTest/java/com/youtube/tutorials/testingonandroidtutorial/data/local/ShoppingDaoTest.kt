@@ -1,15 +1,14 @@
 package com.youtube.tutorials.testingonandroidtutorial.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import com.youtube.tutorials.testingonandroidtutorial.di.AppModule
 import com.youtube.tutorials.testingonandroidtutorial.getOrAwaitValue
 import com.youtube.tutorials.testingonandroidtutorial.launchFragmentInHiltContainer
 import com.youtube.tutorials.testingonandroidtutorial.ui.ShoppingFragment
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.runTest
@@ -17,30 +16,24 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
+import org.junit.runner.RunWith
 
-@UninstallModules(AppModule::class)
-@HiltAndroidTest
 @ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4::class)
 @SmallTest
 class ShoppingDaoTest {
 
     @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Inject
-    lateinit var database: ShoppingItemDatabase
+    private lateinit var database: ShoppingItemDatabase
     private lateinit var dao: ShoppingDao
 
 
     @Before
     fun setup() {
-        hiltRule.inject()
-//        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
-//            .allowMainThreadQueries().build()
+        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
+            .allowMainThreadQueries().build()
         dao = database.shoppingDao()
     }
 
@@ -88,14 +81,4 @@ class ShoppingDaoTest {
 
         assertThat(totalPriceSum).isEqualTo(2 * 10f + 4 * 5.5f)
     }
-
-//    @Module
-////    @InstallIn(SingletonComponent::class)
-//    @TestInstallIn(components = [SingletonComponent::class], replaces = [AppModule::class])
-//    object TestAppModule {
-//
-//        @Provides
-//        fun provideInMemoryDb() = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
-//            .allowMainThreadQueries().build()
-//    }
 }
