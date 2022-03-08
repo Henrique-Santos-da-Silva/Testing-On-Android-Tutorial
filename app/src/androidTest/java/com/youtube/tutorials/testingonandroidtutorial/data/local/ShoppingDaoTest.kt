@@ -37,8 +37,6 @@ class ShoppingDaoTest {
     @Before
     fun setup() {
         hiltRule.inject()
-//        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
-//            .allowMainThreadQueries().build()
         dao = database.shoppingDao()
     }
 
@@ -81,14 +79,4 @@ class ShoppingDaoTest {
 
         assertThat(totalPriceSum).isEqualTo(2 * 10f + 4 * 5.5f)
     }
-
-//    @Module
-////    @InstallIn(SingletonComponent::class)
-//    @TestInstallIn(components = [SingletonComponent::class], replaces = [AppModule::class])
-//    object TestAppModule {
-//
-//        @Provides
-//        fun provideInMemoryDb() = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
-//            .allowMainThreadQueries().build()
-//    }
 }
