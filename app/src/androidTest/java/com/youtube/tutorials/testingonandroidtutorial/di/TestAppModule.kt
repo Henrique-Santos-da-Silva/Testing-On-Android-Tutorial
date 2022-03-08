@@ -2,13 +2,11 @@ package com.youtube.tutorials.testingonandroidtutorial.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import com.youtube.tutorials.testingonandroidtutorial.data.local.ShoppingDao
 import com.youtube.tutorials.testingonandroidtutorial.data.local.ShoppingItemDatabase
 import com.youtube.tutorials.testingonandroidtutorial.data.remote.PixabayAPI
 import com.youtube.tutorials.testingonandroidtutorial.other.Constants
 import com.youtube.tutorials.testingonandroidtutorial.repositories.DefaultShoppingRepository
-import com.youtube.tutorials.testingonandroidtutorial.repositories.FakeShoppingAndroidTestRepository
 import com.youtube.tutorials.testingonandroidtutorial.repositories.ShoppingRepository
 import dagger.Binds
 import dagger.Module
