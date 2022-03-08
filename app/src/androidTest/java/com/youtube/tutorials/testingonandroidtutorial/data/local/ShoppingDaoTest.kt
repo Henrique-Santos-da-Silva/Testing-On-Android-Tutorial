@@ -32,8 +32,7 @@ class ShoppingDaoTest {
 
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java)
-            .allowMainThreadQueries().build()
+        hiltRule.inject()
         dao = database.shoppingDao()
     }
 
