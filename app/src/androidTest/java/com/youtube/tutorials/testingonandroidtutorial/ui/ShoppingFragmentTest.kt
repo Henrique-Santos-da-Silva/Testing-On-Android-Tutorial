@@ -5,29 +5,33 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.youtube.tutorials.testingonandroidtutorial.R
+import com.youtube.tutorials.testingonandroidtutorial.di.AppModule
 import com.youtube.tutorials.testingonandroidtutorial.launchFragmentInHiltContainer
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(AppModule::class)
 @MediumTest
-//@HiltAndroidTest
+@HiltAndroidTest
 @ExperimentalCoroutinesApi
 class ShoppingFragmentTest {
 
-//    @get:Rule
-//    var hiltRule = HiltAndroidRule(this)
-//
-//    @Before
-//    fun setUp() {
-//        hiltRule.inject()
-//    }
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
 
     @Test
     fun clickAddShoppingItemButton_navigateToAddShoppingItemFragment() {

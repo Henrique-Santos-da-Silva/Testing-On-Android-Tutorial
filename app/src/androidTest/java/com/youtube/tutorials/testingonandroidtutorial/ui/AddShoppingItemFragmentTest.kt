@@ -7,28 +7,33 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.google.common.truth.Truth.assertThat
 import com.youtube.tutorials.testingonandroidtutorial.MainAndroidTestCoroutineRule
 import com.youtube.tutorials.testingonandroidtutorial.R
+import com.youtube.tutorials.testingonandroidtutorial.di.AppModule
 import com.youtube.tutorials.testingonandroidtutorial.getOrAwaitValue
 import com.youtube.tutorials.testingonandroidtutorial.launchFragmentInHiltContainer
 import com.youtube.tutorials.testingonandroidtutorial.repositories.FakeShoppingAndroidTestRepository
 import com.youtube.tutorials.testingonandroidtutorial.viewmodels.ShoppingViewModel
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(AppModule::class)
+@HiltAndroidTest
 @MediumTest
-//@HiltAndroidTest
 @ExperimentalCoroutinesApi
 class AddShoppingItemFragmentTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -38,12 +43,10 @@ class AddShoppingItemFragmentTest {
 
     private lateinit var viewModel: ShoppingViewModel
 
-    //    @get:Rule
-//    var hiltRule = HiltAndroidRule(this)
-//
+
     @Before
     fun setUp() {
-//        hiltRule.inject()
+        hiltRule.inject()
         viewModel = ShoppingViewModel(FakeShoppingAndroidTestRepository())
     }
 
